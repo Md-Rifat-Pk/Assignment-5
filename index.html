@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GitHub Issues Tracker</title>
+    <!-- Tailwind + Daisy UI -->
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@5" rel="stylesheet" type="text/css" />
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <style>
+        .active-tab {
+            border-bottom: 3px solid #2563eb;
+            color: #2563eb;
+            font-weight: bold;
+        }
+
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+
+<body class="bg-gray-100 font-sans">
+
+    <div id="login-page" class="min-h-screen flex items-center justify-center">
+        <div class="bg-white p-8 rounded-lg shadow-xl w-96 text-center">
+            <h1 class="text-3xl font-bold text-blue-600 mb-2">GitHub</h1>
+            <h2 class="text-xl font-semibold">Issues Tracker</h2>
+            <p class="text-gray-500 mb-6">Enter your details to sign in</p>
+
+            <input type="text" value="admin" id="username" placeholder="Username (admin)"
+                class="w-full p-3 mb-4 border rounded-lg focus:outline-blue-500">
+            <input type="password" value="admin123" id="password" placeholder="Password (admin123)"
+                class="w-full p-3 mb-4 border rounded-lg focus:outline-blue-500">
+
+            <button onclick="handleLogin()"
+                class="w-full bg-blue-600 text-white py-3 rounded-lg font-bold hover:bg-blue-700 transition">Sign
+                In</button>
+
+            <div class="mt-6 p-3 bg-gray-50 rounded text-sm text-gray-600">
+                <p>Demo Username: <strong>admin</strong></p>
+                <p>Demo Password: <strong>admin123</strong></p>
+            </div>
+        </div>
+    </div>
+
+    <div id="main-page" class="hidden">
+        <nav class="bg-white shadow-md p-4 flex flex-col md:flex-row justify-between items-center px-6 md:px-12">
+            <div class="text-2xl font-bold text-blue-600 mb-4 md:mb-0">IssueTracker</div>
+            <div class="flex w-full md:w-auto gap-2">
+                <input type="text" id="search-input" placeholder="Search by title..."
+                    class="border p-2 rounded-l-lg w-full md:w-64 focus:outline-none">
+                <button onclick="handleSearch()"
+                    class="bg-blue-600 text-white px-6 py-2 rounded-r-lg hover:bg-blue-700">Search</button>
+            </div>
+        </nav>
+
+        <div class="max-w-7xl mx-auto p-6">
+            <div class="flex gap-8 border-b border-gray-300 mb-8 overflow-x-auto">
+                <button onclick="filterIssues('all')" id="tab-all" class="pb-3 px-2 active-tab whitespace-nowrap">All
+                    Issues</button>
+                <button onclick="filterIssues('open')" id="tab-open" class="pb-3 px-2 whitespace-nowrap">Open</button>
+                <button onclick="filterIssues('closed')" id="tab-closed"
+                    class="pb-3 px-2 whitespace-nowrap">Closed</button>
+            </div>
+
+
+            <div
+                class="flex flex-col sm:flex-row justify-between items-center bg-white p-4 rounded-t-xl border-b border-gray-200 shadow-md">
+
+                <div class="flex items-center gap-2 sm:gap-2">
+                  
+                    <img class="bg-[#ECE4FF] p-3 rounded-full w-14 h-14" src="" alt="Project Icon">
+                    <div>
+                        <h2 class="text-2xl font-bold text-gray-800">
+                            <span id="issues-count">0</span> Issues
+                        </h2>
+                        <p class="text-gray-500 mt-1">Track and manage your project issues</p>
+                    </div>
+                </div>
+
+               
+                <div class="flex gap-2 mt-4 sm:mt-0 mr-18 sm:mr-0">
+                    <p><span class="badge bg-green-700 badge-xs"></span> Open</p>
+                    <p> <span class="badge bg-[#A855F7] badge-xs"></span> Closed</p>
+                </div>
+
+            </div>
+
+
+
+            <div id="loader" class="hidden flex justify-center my-20">
+                <div class="animate-spin rounded-full h-12 w-12 border-t-4 border-blue-600"></div>
+            </div>
+
+            <div id="issues-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            </div>
+        </div>
+    </div>
+
+
+   
+    <dialog id="issue_modal" class="modal">
+    <div class="modal-box max-w-2xl">
+        <form method="dialog">
+            <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
+        </form>
+        <div id="modal-body"></div>
+    </div>
+</dialog>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
